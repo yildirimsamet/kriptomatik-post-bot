@@ -19,7 +19,6 @@ function delay(x) {
 
 app.get("/", async function (req, res) {
   for (let i = 0; i < 999999; i++) {
-    await delay(60000 * 60 * 12);
     const data = await pptr();
     let fixedData = [];
     for (let i = 0; i < data.length; i++) {
@@ -31,6 +30,7 @@ app.get("/", async function (req, res) {
     if (fixedData.length > 0) {
       await News.insertMany(fixedData);
     }
+    await delay(60000 * 60 * 12);
   }
 });
 
