@@ -13,25 +13,27 @@ mongoose.connect(
     console.log("db baglandı");
   }
 );
-function delay(x) {
-  return new Promise((res) => setTimeout(() => res()), x);
-}
+// function delay(x) {
+//   return new Promise((res) => setTimeout(() => res()), x);
+// }
 
 app.get("/", async function (req, res) {
-  for (let i = 0; i < 999999; i++) {
-    const data = await pptr();
-    let fixedData = [];
-    for (let i = 0; i < data.length; i++) {
-      let singleData = await News.findOne({ title: data[i].title });
-      if (!singleData) {
-        fixedData.push(data[i]);
-      }
+  // for (let i = 0; i < 999999; i++) {
+
+  //   await delay(60000 * 60 * 12);
+  // }
+  const data = await pptr();
+  let fixedData = [];
+  for (let i = 0; i < data.length; i++) {
+    let singleData = await News.findOne({ title: data[i].title });
+    if (!singleData) {
+      fixedData.push(data[i]);
     }
-    if (fixedData.length > 0) {
-      await News.insertMany(fixedData);
-    }
-    await delay(60000 * 60 * 12);
   }
+  if (fixedData.length > 0) {
+    await News.insertMany(fixedData);
+  }
+  res.json(fixedData);
 });
 
 app.listen(PORT, function () {
