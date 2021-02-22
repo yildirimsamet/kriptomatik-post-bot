@@ -3,7 +3,9 @@ const mongoose = require("mongoose");
 const puppeteer = require("puppeteer");
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const PORT = process.env.PORT || 8080;
+app.use(cors());
 require("dotenv").config();
 mongoose.connect(
   process.env.MONGO_URI,
